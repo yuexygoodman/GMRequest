@@ -10,6 +10,6 @@ target 'GMRequest' do
   target 'GMRequestTests' do
     inherit! :search_paths
     # Pods for testing
-  end
+  en
 
 end
