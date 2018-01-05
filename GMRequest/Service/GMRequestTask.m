@@ -18,6 +18,10 @@
 {
     return [self.sessionTask cancel];
 }
+- (void) suspend
+{
+    return [self.sessionTask suspend];
+}
 - (void) resume
 {
     return [self.sessionTask resume];

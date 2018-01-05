@@ -14,5 +14,6 @@
 
 @interface GMRequestTask : NSObject
 - (void)cancel;
+- (void)suspend;
 - (void)resume;
 @end
