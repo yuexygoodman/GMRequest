@@ -33,8 +33,7 @@
             [customContentTypes addObject:@"text/html"];
             [customContentTypes addObject:@"text/plain"];
             [customContentTypes addObject:@"text/json"];
-            [customContentTypes addObject:@"image/jpeg"];
-            [customContentTypes addObject:@"image/png"];
+            [customContentTypes addObject:@"image/*"];
             [customContentTypes addObject:@"application/octet-stream"];
             [customContentTypes addObject:@"application/json"];
             responseSerializer.acceptableContentTypes = [customContentTypes copy];
@@ -52,6 +51,29 @@
 {
     _allowInvalidCertificates=allowInvalidCertificates;
     _sessionManager.securityPolicy.allowInvalidCertificates=_allowInvalidCertificates;
+}
+- (void)setStringEncoding:(NSStringEncoding)stringEncoding
+{
+    _stringEncoding=stringEncoding;
+    _sessionManager.requestSerializer.stringEncoding=stringEncoding;
+    _sessionManager.responseSerializer.stringEncoding=stringEncoding;
+}
+- (void)setContentType:(GMRequestContentType)contentType {
+    _contentType=contentType;
+    switch (contentType) {
+        case 0:
+        self.sessionManager.requestSerializer=[AFHTTPRequestSerializer serializer];
+        break;
+        case 1:
+        self.sessionManager.requestSerializer=[AFJSONRequestSerializer serializer];
+        break;
+        case 2:
+        self.sessionManager.requestSerializer=[AFPropertyListRequestSerializer serializer];
+        break;
+        default:
+        self.sessionManager.requestSerializer=[AFHTTPRequestSerializer serializer];
+        break;
+    }
 }
 - (void)setRequestHeaders:(NSDictionary *) headers
 {
@@ -320,12 +342,12 @@
 
 + (instancetype)jsonRequest
 {
-    return [self requestWithOptions:@{kContentType:@(GMRequestContentTypeJson)}];
+    return [self requestWithOptions:@{kGMRequestContentType:@(GMRequestContentTypeJson)}];
 }
 
 + (instancetype)xmlRequest
 {
-    return [self requestWithOptions:@{kContentType:@(GMRequestContentTypeXplist)}];
+    return [self requestWithOptions:@{kGMRequestContentType:@(GMRequestContentTypeXplist)}];
 }
 
 + (instancetype)requestWithOptions:(NSDictionary *) options
@@ -333,29 +355,20 @@
     GMRequest * request=[[GMRequest alloc] init];
     if ([options isKindOfClass:[NSDictionary class]]) {
         for (NSString * key in options.allKeys) {
-            if ([key isEqualToString:kContentType]){
-                GMRequestContentType contentType=[[options objectForKey:key] integerValue];
-                switch (contentType) {
-                    case 0:
-                        break;
-                    case 1:
-                        request.sessionManager.requestSerializer=[AFJSONRequestSerializer serializer];
-                        break;
-                    case 2:
-                        request.sessionManager.requestSerializer=[AFPropertyListRequestSerializer serializer];
-                        break;
-                    default:
-                        break;
-                }
+            if ([key isEqualToString:kGMRequestContentType]){
+                request.contentType=[[options objectForKey:key] integerValue];
             }
-            else if ([key isEqualToString:kAllowInvalidCertificates]){
+            else if ([key isEqualToString:kGMRequestAllowInvalidCertificates]){
                 request.allowInvalidCertificates= [[options objectForKey:key] boolValue];
             }
-            else if ([key isEqualToString:kTimeOut]) {
+            else if ([key isEqualToString:kGMRequestTimeOut]) {
                 request.timeOut=[[options objectForKey:key] doubleValue];
             }
-            else if ([key isEqualToString:kSynchronous]){
-                request.synchronous=[[options objectForKey:key] doubleValue];
+            else if ([key isEqualToString:kGMRequestSynchronous]){
+                request.synchronous=[[options objectForKey:key] boolValue];
+            }
+            else if ([key isEqualToString:kGMRequestStringEncoding]){
+                request.stringEncoding=[[options objectForKey:key] longValue];
             }
         }
     }

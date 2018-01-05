@@ -25,11 +25,11 @@ typedef NS_ENUM(NSInteger,GMRequestContentType) {
     GMRequestContentTypeXplist//application/x-plist
 };
 
-#define kTimeOut @"timeOut"  // Key for request options parameter
-#define kAllowInvalidCertificates @"allowInvalidCertificates" // Key for request options parameter
-#define kContentType @"contentType" // Descript the HTTP request header field `Content-Type`,`GMRequestContentType` type value.
-#define kSynchronous @"synchronous" // a synchronous request or a asynchronous one.
-
+#define kGMRequestTimeOut @"timeOut"  // Key for request options parameter
+#define kGMRequestAllowInvalidCertificates @"allowInvalidCertificates" // Key for request options parameter
+#define kGMRequestContentType @"contentType" // Descript the HTTP request header field `Content-Type`,`GMRequestContentType` type value.
+#define kGMRequestSynchronous @"synchronous" // a synchronous request or a asynchronous one.
+#define kGMRequestStringEncoding @"stringEncoding" //The string encoding used to serialize data received from the server, when no string encoding is specified by the response. `NSUTF8StringEncoding` by default.
 
 /**
  The response block for a request,called when a response recieved or the request go wrong.
@@ -69,7 +69,11 @@ typedef void(^GMRequestProgressBlock)(NSProgress * progress);
  */
 @property(assign,nonatomic) BOOL allowInvalidCertificates;
 
+@property(assign,nonatomic) GMRequestContentType contentType;
+
 @property(assign,nonatomic) BOOL synchronous; //default is no.
+
+@property(assign,nonatomic) NSStringEncoding stringEncoding; //default is utf-8.
 
 #pragma -mark Get method request
 - (GMRequestTask *)getWithUrl:(NSString *) url finish:(GMRequestFinishBlock) finish;
