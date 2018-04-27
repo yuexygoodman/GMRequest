@@ -6,10 +6,10 @@ target 'GMRequest' do
   # use_frameworks!
   
   # Pods for GMRequest
-  pod 'AFNetworking', '~> 3.1.0'
+  pod 'AFNetworking'
   target 'GMRequestTests' do
     inherit! :search_paths
     # Pods for testing
-  en
+  end
 
 end

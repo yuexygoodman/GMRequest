@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "GMRequest"
-  s.version      = "1.0.1"
+  s.version      = "1.1.0"
   s.summary      = "A library for simplifying AFNetwork`s uses."
 
   # This description is used to generate tags and improve search results.
@@ -65,7 +65,7 @@ Pod::Spec.new do |s|
   #
 
   # s.platform     = :ios
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "8.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
@@ -133,6 +133,6 @@ Pod::Spec.new do |s|
   # s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.dependency "AFNetworking", "~> 3.1.0"
+  s.dependency "AFNetworking", "~> 3.2.0"
 
 end
