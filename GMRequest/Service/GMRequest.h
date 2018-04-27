@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger,GMRequestContentType) {
 #define kGMRequestTimeOut @"timeOut"  // Key for request options parameter
 #define kGMRequestContentType @"contentType" // Descript the HTTP request header field `Content-Type`,`GMRequestContentType` type value.
 #define kGMRequestSynchronous @"synchronous" // a synchronous request or a asynchronous one.
-#define kGMRequestStringEncoding @"stringEncoding" DEPRECATED_MSG_ATTRIBUTE("The string encoding is never used because of new version`s AFNetworking framework.")
+#define kGMRequestStringEncoding @"stringEncoding" //The string encoding used to serialize data received from the server, when no string encoding is specified by the response. `NSUTF8StringEncoding` by default.
 #define kGMRequestAllowInvalidCertificates @"allowInvalidCertificates" // Key for https
 #define kGMRequestAllowInvalidDomain @"allowInvalidDomain" // key for https
 
@@ -81,7 +81,7 @@ typedef void(^GMRequestProgressBlock)(NSProgress * progress);
 
 @property(assign,nonatomic) BOOL synchronous; //default is no.
 
-@property(assign,nonatomic) NSStringEncoding stringEncoding; //default is utf-8.
+@property(assign,nonatomic) NSStringEncoding stringEncoding DEPRECATED_MSG_ATTRIBUTE("The string encoding is never used because of new version`s AFNetworking framework.");
 
 #pragma -mark Get method request
 - (GMRequestTask *)getWithUrl:(NSString *) url finish:(GMRequestFinishBlock) finish;
