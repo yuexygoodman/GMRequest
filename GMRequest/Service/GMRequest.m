@@ -52,6 +52,10 @@
     _allowInvalidCertificates=allowInvalidCertificates;
     _sessionManager.securityPolicy.allowInvalidCertificates=_allowInvalidCertificates;
 }
+- (void)setAllowInvalidDomain:(BOOL)allowInvalidDomain {
+    _allowInvalidDomain=allowInvalidDomain;
+    _sessionManager.securityPolicy.validatesDomainName=!_allowInvalidDomain;
+}
 - (void)setStringEncoding:(NSStringEncoding)stringEncoding
 {
     _stringEncoding=stringEncoding;
@@ -360,6 +364,9 @@
             }
             else if ([key isEqualToString:kGMRequestAllowInvalidCertificates]){
                 request.allowInvalidCertificates= [[options objectForKey:key] boolValue];
+            }
+            else if ([key isEqualToString:kGMRequestAllowInvalidDomain]){
+                request.allowInvalidDomain=[[options objectForKey:key] boolValue];
             }
             else if ([key isEqualToString:kGMRequestTimeOut]) {
                 request.timeOut=[[options objectForKey:key] doubleValue];
