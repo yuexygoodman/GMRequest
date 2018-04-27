@@ -10,6 +10,8 @@
 #import "GMRequestTask.h"
 #import "GMRequestFile.h"
 
+@class AFHTTPSessionManager;
+
 typedef NS_ENUM(NSInteger,GMRequestMethod) {
     GMRequestMethodGet,
     GMRequestMethodPost,
@@ -63,6 +65,9 @@ typedef void(^GMRequestProgressBlock)(NSProgress * progress);
  */
 
 @interface GMRequest : NSObject
+
+@property(strong,nonatomic) AFHTTPSessionManager * sessionManager;
+
 @property(assign,nonatomic) NSTimeInterval timeOut;
 
 /**

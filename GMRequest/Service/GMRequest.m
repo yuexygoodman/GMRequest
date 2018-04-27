@@ -16,10 +16,6 @@
 @property(nonatomic,strong) NSError * err;
 @end
 
-@interface GMRequest ()
-@property(strong,nonatomic) AFHTTPSessionManager * sessionManager;
-@end
-
 @implementation GMRequest
 #pragma -mark internal methods
 - (id)init
