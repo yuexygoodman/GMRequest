@@ -20,7 +20,7 @@ A library for simplifying network program.
         NSLog(@"%@",resData);
     }];
     
-    //同步请求
+    //同步请求
     GMRequest *newRequest=[GMRequest request];
     newRequest.synchronous=YES;
     [newRequest getWithUrl:@"your url address" finish:^(id resData, NSError *error) {
